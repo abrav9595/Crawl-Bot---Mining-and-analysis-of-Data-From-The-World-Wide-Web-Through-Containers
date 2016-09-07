@@ -1,0 +1,460 @@
+from random import shuffle
+import time
+import colorsys
+import pandas as pd
+from plotly.offline import  init_notebook_mode, iplot
+from plotly.graph_objs import *
+
+"""
+    This code scrapes the marks from the webpage and saves it to marklist.csv file.
+    At the same time, the grades for each subject is being stored in text files, which are then processed by using HDFS to find the probability of grades in each subject. 
+"""
+"""
+    This code scrapes the marks from the webpage and saves it to marklist.csv file.
+    At the same time, the grades for each subject is being stored in text files, which are then processed by using HDFS to find the probability of grades in each subject. 
+"""
+
+
+from bs4 import BeautifulSoup
+import csv
+
+soup = BeautifulSoup (open("marklist.html"),"html.parser")
+
+f = csv.writer(open("marklist.csv", "w"))   # Open the output file for writing before the loop
+
+f1 = csv.writer(open("marks.csv","w"))
+
+trs = soup.find_all('tr')
+
+s1 = open("cs2401.txt","w")
+s2 = open("cs2402.txt","w")
+s3 = open("cs2403.txt","w")
+s4 = open("mg2452.txt","w")
+s5 = open("cs2041.txt","w")
+s6 = open("it2024.txt","w")
+s7 = open("cs2405.txt","w")
+s8 = open("cs2406.txt","w")
+
+
+f.writerow(["Sno","Reg no","Name","CS2401","CS2402","CS2403","MG2452","CS2041","IT2024","CS2405","CS2406","GPA","CLASS"])
+f1.writerow(["CS2401","CS2402","CS2403","MG2452","CS2041","IT2024","CS2405","CS2406","GPA","CLASS"])
+
+for tr in trs:
+    for link in tr.find_all('a'):
+        fullLink = link.get ('href')
+
+    tds = tr.find_all("td")
+
+    c = 0
+    class_var = ''
+    try: #we are using "try" because the table is not well formatted. This allows the program to continue after encountering an error.
+        sno = str(tds[0].get_text()) # This structure isolate the item by its column in the table and converts it into a string.
+        reg = str(tds[1].get_text())
+        name = str(tds[2].get_text())
+        sub1 = str(tds[3].get_text())
+        sub2 = str(tds[4].get_text())
+        sub3 = str(tds[5].get_text())
+        sub4 = str(tds[6].get_text())
+        sub5 = str(tds[7].get_text())
+        sub6 = str(tds[8].get_text())
+        sub7 = str(tds[9].get_text())
+        sub8 = str(tds[10].get_text())
+        gpa = str(tds[11].get_text())
+
+        
+        if(len(sub1)==1): 
+            s1.write(sub1+"\n")
+        if(len(sub2)==1): 
+            s2.write(sub2+"\n")
+        if(len(sub3)==1): 
+            s3.write(sub3+"\n")
+        if(len(sub4)==1): 
+            s4.write(sub4+"\n")
+        if(len(sub5)==1): 
+            s5.write(sub5+"\n")
+        if(len(sub6)==1): 
+            s6.write(sub6+"\n")
+        if(len(sub7)==1): 
+            s7.write(sub7+"\n")
+        if(len(sub8)==1): 
+            s8.write(sub8+"\n")
+         
+        #For subject one
+        if(sub1=='S'):
+            c = c+6
+        elif(sub1=='A'):
+            c = c+5
+        elif(sub1=='B'):
+            c = c+4
+        elif(sub1=='C'):
+            c = c+3
+        elif(sub1=='D'):
+            c = c+2
+        elif(sub1=='E'):
+            c = c+1
+            
+        #For subject two
+        if(sub2=='S'):
+            c = c+6
+        elif(sub2=='A'):
+            c = c+5
+        elif(sub2=='B'):
+            c = c+4
+        elif(sub2=='C'):
+            c = c+3
+        elif(sub2=='D'):
+            c = c+2
+        elif(sub2=='E'):
+            c = c+1
+        
+        #For subject three
+        if(sub3=='S'):
+            c = c+6
+        elif(sub3=='A'):
+            c = c+5
+        elif(sub3=='B'):
+            c = c+4
+        elif(sub3=='C'):
+            c = c+3
+        elif(sub3=='D'):
+            c = c+2
+        elif(sub3=='E'):
+            c = c+1
+            
+        #For subject four
+        if(sub4=='S'):
+            c = c+6
+        elif(sub4=='A'):
+            c = c+5
+        elif(sub4=='B'):
+            c = c+4
+        elif(sub4=='C'):
+            c = c+3
+        elif(sub4=='D'):
+            c = c+2
+        elif(sub4=='E'):
+            c = c+1
+            
+        #For subject five
+        if(sub5=='S'):
+            c = c+6
+        elif(sub5=='A'):
+            c = c+5
+        elif(sub5=='B'):
+            c = c+4
+        elif(sub5=='C'):
+            c = c+3
+        elif(sub5=='D'):
+            c = c+2
+        elif(sub5=='E'):
+            c = c+1
+            
+        #For subject six
+        if(sub6=='S'):
+            c = c+6
+        elif(sub6=='A'):
+            c = c+5
+        elif(sub6=='B'):
+            c = c+4
+        elif(sub6=='C'):
+            c = c+3
+        elif(sub6=='D'):
+            c = c+2
+        elif(sub6=='E'):
+            c = c+1
+            
+        #For subject seven
+        if(sub7=='S'):
+            c = c+6
+        elif(sub7=='A'):
+            c = c+5
+        elif(sub7=='B'):
+            c = c+4
+        elif(sub7=='C'):
+            c = c+3
+        elif(sub7=='D'):
+            c = c+2
+        elif(sub7=='E'):
+            c = c+1
+            
+        #For subject eight
+        if(sub8=='S'):
+            c = c+6
+        elif(sub8=='A'):
+            c = c+5
+        elif(sub8=='B'):
+            c = c+4
+        elif(sub8=='C'):
+            c = c+3
+        elif(sub8=='D'):
+            c = c+2
+        elif(sub8=='E'):
+            c = c+1
+        
+        temp = gpa
+        temp1 = float(temp)
+        t = int(temp1)
+        
+        #print t
+        if (gpa!='GPA'):
+            c = c+t
+            
+        if (c>=50) and (c<60):
+            class_var = 'Eminent'
+        elif (c>=40) and (c<50):
+            class_var = 'Excellent'
+        elif (c>=30) and (c<40):
+            class_var = 'Good'
+        elif (c>=20) and (c<30):
+            class_var = 'Moderate'
+        elif (c>=10) and (c<20):
+            class_var = 'Fair'
+        elif (c>=0) and (c<10):
+            class_var = 'Poor'    
+            
+    #    print gpa
+    except:
+        continue #This tells the computer to move on to the next item after it encounters an error
+    
+   # print gpa
+    if(str(tds[11].get_text())!='GPA'):
+        f.writerow([sno,reg,name,sub1,sub2,sub3,sub4,sub5,sub6,sub7,sub8,t,class_var])
+        f1.writerow([sub1,sub2,sub3,sub4,sub5,sub6,sub7,sub8,t,class_var])
+    
+
+s1.close()
+s2.close()
+s3.close()
+s4.close()
+s5.close()
+s6.close()
+s7.close()
+s8.close()
+"""
+    End of the program.
+"""
+    
+
+
+start_time = time.time()
+
+init_notebook_mode()
+
+# Load players into players dataframe 
+sub = pd.read_csv('marks.csv')
+
+# Find top 20 countries with more player frequncies 
+subject1 = sub.groupby(['CS2401']).size()
+selected_subject1 = subject1.sort_values(ascending=False)[:7]
+
+subject2 = sub.groupby(['CS2402']).size()
+selected_subject2 = subject2.sort_values(ascending=False)[:7]
+
+subject3 = sub.groupby(['CS2403']).size()
+selected_subject3 = subject3.sort_values(ascending=False)[:7]
+
+subject4 = sub.groupby(['MG2452']).size()
+selected_subject4 = subject4.sort_values(ascending=False)[:7]
+
+subject5 = sub.groupby(['CS2041']).size()
+selected_subject5 = subject5.sort_values(ascending=False)[:7]
+
+subject6 = sub.groupby(['CS2405']).size()
+selected_subject6 = subject6.sort_values(ascending=False)[:7]
+
+subject7 = sub.groupby(['CS2406']).size()
+selected_subject7 = subject7.sort_values(ascending=False)[:7]
+
+subject8 = sub.groupby(['CS2401']).size()
+selected_subject8 = subject8.sort_values(ascending=False)[:7]
+
+# Generating 20 random color palettes for plotting each country.
+N = 7
+HSV_tuples = [(x*1.0/N, 0.5, 0.5) for x in range(N)]
+RGB_tuples = map(lambda x: colorsys.hsv_to_rgb(*x), HSV_tuples)
+shuffle(RGB_tuples)
+plot_colors = ['rgb(%f,%f,%f)'%(a,b,c) for a,b,c in RGB_tuples]
+
+""" Plot.ly plotting code. A plot.ly iplot needs data and a layout 
+    So now we prepare data and then layout. Here data is a scatter plot
+    
+"""
+trace1= Scatter(
+    x = list(selected_subject1.index),
+    y = list(selected_subject1.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace2= Scatter(
+    x = list(selected_subject2.index),
+    y = list(selected_subject2.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace3= Scatter(
+    x = list(selected_subject3.index),
+    y = list(selected_subject3.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace4 = Scatter(
+    x = list(selected_subject4.index),
+    y = list(selected_subject4.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace5 = Scatter(
+    x = list(selected_subject5.index),
+    y = list(selected_subject5.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace6 = Scatter(
+    x = list(selected_subject6.index),
+    y = list(selected_subject6.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace7 = Scatter(
+    x = list(selected_subject7.index),
+    y = list(selected_subject7.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+trace8 = Scatter(
+    x = list(selected_subject8.index),
+    y = list(selected_subject8.values),
+    mode = 'markers',
+    marker = {'color' : plot_colors, 'size' : [10] * N}
+)
+
+# Data can be a list of plot types. You can have ore than one scatter plots on figure 
+
+data1 = [trace0]
+data2 = [trace1]
+data3 = [trace2]
+data4 = [trace3]
+data5 = [trace4]
+data6 = [trace5]
+data7 = [trace6]
+data8 = [trace7]
+
+# layout has properties like x-axis label, y-axis label, background-color etc
+
+layout1 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in CS2401"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout2 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in CS2402"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout3 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in CS2403"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout4 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in MG2452"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout5 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in CS2041"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout6 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in IT2024"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout7 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in CS2405"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+layout8 = Layout(
+    xaxis = {'title':"Grades"}, # x-axis label
+    yaxis = {'title':" No of Students passed with the Grade in CS2406"}, # y-axis label
+    showlegend=False,
+    height=400, # height & width of plot
+    width=600,
+    paper_bgcolor='rgb(233,233,233)',   
+    plot_bgcolor='rgb(233,233,233)', # background color of plot layout
+)
+
+# Build figure from data, layout and plot it.
+fig = Figure(data=data1, layout=layout1)
+iplot(fig)
+
+
+fig = Figure(data=data2 ,layout=layout2)
+iplot(fig)
+
+fig = Figure(data=data3 ,layout=layout3)
+iplot(fig)
+
+fig = Figure(data=data4 ,layout=layout4)
+iplot(fig)
+
+fig = Figure(data=data5 ,layout=layout5)
+iplot(fig)
+
+fig = Figure(data=data6 ,layout=layout6)
+iplot(fig)
+
+fig = Figure(data=data7 ,layout=layout7)
+iplot(fig)
+
+fig = Figure(data=data8 ,layout=layout8)
+iplot(fig)
+
+end_time = time.time()
+
+
+print ("---------- %s seconds ----------" % (end_time - start_time))
