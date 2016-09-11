@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script executes the "Hello World" of MapReduce.
-
+chmod 777 /final_project/mypython
 #calculate the time as a performance metric...(In the case of a Linux Container).
 starttime=$(date +%s)
 
@@ -45,15 +45,15 @@ sudo -u cloudgene /usr/bin/hadoop jar /usr/lib/hadoop-0.20-mapreduce/hadoop-exam
 #copy output to local directory
 cd mypython
 
-sudo -u cloudgene hadoop fs -get output1/part-r-00000 cs2401
-sudo -u cloudgene hadoop fs -get output2/part-r-00000 cs2402
-sudo -u cloudgene hadoop fs -get output3/part-r-00000 cs2403
-sudo -u cloudgene hadoop fs -get output4/part-r-00000 mg2452
+sudo -u cloudgene hadoop fs -get output1/part-r-00000 /final_project/mypython/cs2401
+sudo -u cloudgene hadoop fs -get output2/part-r-00000 /final_project/mypython/cs2402
+sudo -u cloudgene hadoop fs -get output3/part-r-00000 /final_project/mypython/cs2403
+sudo -u cloudgene hadoop fs -get output4/part-r-00000 /final_project/mypython/mg2452
 
-sudo -u cloudgene hadoop fs -get output5/part-r-00000 cs2041
-sudo -u cloudgene hadoop fs -get output6/part-r-00000 it2024
-sudo -u cloudgene hadoop fs -get output7/part-r-00000 cs2405
-sudo -u cloudgene hadoop fs -get output8/part-r-00000 cs2406
+sudo -u cloudgene hadoop fs -get output5/part-r-00000 /final_project/mypython/cs2041
+sudo -u cloudgene hadoop fs -get output6/part-r-00000 /final_project/mypython/it2024
+sudo -u cloudgene hadoop fs -get output7/part-r-00000 /final_project/mypython/cs2405
+sudo -u cloudgene hadoop fs -get output8/part-r-00000 /final_project/mypython/cs2406
 
 #calculating the total time for hadoop mapreduce..(In the case of a linux container).
 endtime=$(date +%s)
