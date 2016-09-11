@@ -19,16 +19,16 @@ sudo -u cloudgene hadoop fs -mkdir input6
 sudo -u cloudgene hadoop fs -mkdir input7
 sudo -u cloudgene hadoop fs -mkdir input8
 # Add some data to the input directory
+pwd
+sudo -u cloudgene hadoop fs -put /final_project/mypython/cs2401.txt input1
+sudo -u cloudgene hadoop fs -put /final_project/mypython/cs2402.txt input2
+sudo -u cloudgene hadoop fs -put /final_project/mypython/cs2403.txt input3
+sudo -u cloudgene hadoop fs -put /final_project/mypython/mg2452.txt input4
 
-sudo -u cloudgene hadoop fs -put /mypython/cs2401.txt input1
-sudo -u cloudgene hadoop fs -put /mypython/cs2402.txt input2
-sudo -u cloudgene hadoop fs -put /mypython/cs2403.txt input3
-sudo -u cloudgene hadoop fs -put /mypython/mg2452.txt input4
-
-sudo -u cloudgene hadoop fs -put /mypython/cs2041.txt input5
-sudo -u cloudgene hadoop fs -put /mypython/it2024.txt input6
-sudo -u cloudgene hadoop fs -put /mypython/cs2405.txt input7
-sudo -u cloudgene hadoop fs -put /mypython/cs2406.txt input8
+sudo -u cloudgene hadoop fs -put /final_project/mypython/cs2041.txt input5
+sudo -u cloudgene hadoop fs -put /final_project/mypython/it2024.txt input6
+sudo -u cloudgene hadoop fs -put /final_project/mypython/cs2405.txt input7
+sudo -u cloudgene hadoop fs -put /final_project/mypython/cs2406.txt input8
 
 # Execute Wordcount
 
